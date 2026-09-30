@@ -1,0 +1,21 @@
+{
+  "manifest_version": 3,
+  "name": "Hakari",
+  "version": "0.3.0",
+  "minimum_chrome_version": "95",
+  "description": "Linki do śledzenia przesyłek w panelu IdoSell kartony24h.com.",
+  "content_scripts": [{
+    "matches": ["https://kartony24h.com/panel/orderd.php*", "https://kartony24h.com/panel/app/orderd.php*"],
+    "all_frames": true,
+    "js": ["content/tracking.js", "content/orders.js"],
+    "css": ["content/orders.css"],
+    "run_at": "document_idle"
+  }],
+  "permissions": ["storage"],
+  "icons": {"16": "icons/hakari-16.png", "32": "icons/hakari-32.png", "48": "icons/hakari-48.png", "128": "icons/hakari-128.png"},
+  "action": {
+    "default_title": "Hakari",
+    "default_popup": "popup/popup.html",
+    "default_icon": {"16": "icons/hakari-16.png", "32": "icons/hakari-32.png", "48": "icons/hakari-48.png", "128": "icons/hakari-128.png"}
+  }
+}

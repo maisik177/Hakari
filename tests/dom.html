@@ -1,0 +1,36 @@
+<!doctype html><meta charset="utf-8"><title>Hakari — test DOM</title>
+<h1>Test integracji z układem IdoSell</h1><pre id="result">Testowanie…</pre>
+<table><tr id="tr_firma-kurierska"><td>Kurier</td><td><span class="delivery-name">GLS</span></td></tr></table>
+<div id="packagesTable"><span id="package-number-details-1"><span class="package-number">00123456789</span><a class="deletePackageNumber" href="#">usuń</a></span></div>
+<script src="/content/tracking.js"></script>
+<script>/* Only the test fixture overrides the URL guard. */ HakariTracking.isOrderPage = () => true;</script>
+<script src="/content/orders.js"></script>
+<script>
+(async () => {
+  const output = document.querySelector('#result');
+  const check = (ok, message) => { if (!ok) throw Error(message); };
+  const settle = () => new Promise(resolve => setTimeout(resolve, 100));
+  try {
+    check(document.querySelector('[data-hakari-tracking]').href.includes('match=00123456789'), 'GLS link');
+    check(document.querySelector('.deletePackageNumber').textContent === 'usuń', 'preserve controls');
+    document.querySelector('.delivery-name').textContent = 'Allegro Paczkomaty InPost';
+    await settle();
+    check(document.querySelector('[data-hakari-tracking]').hostname === 'inpost.pl', 'carrier change');
+    const extra = document.createElement('span');
+    extra.id = 'package-number-details-2';
+    extra.innerHTML = '<span class="package-number">00987654321</span>';
+    document.querySelector('#packagesTable').append(extra);
+    await settle();
+    check(document.querySelectorAll('[data-hakari-tracking]').length === 2, 'late second package');
+    document.querySelector('.package-number').textContent = '00111111111';
+    await settle();
+    check(document.querySelector('[data-hakari-tracking]').href.includes('00111111111'), 'number change');
+    check(!document.querySelector('a a'), 'no nested links');
+    document.querySelector('.delivery-name').textContent = 'Nieznany kurier';
+    await settle();
+    check(!document.querySelector('[data-hakari-tracking]'), 'remove stale links');
+    check(document.querySelector('.package-number').textContent === '00111111111', 'preserve number');
+    output.textContent = 'PASS — link GLS, przyciski panelu, zmiana kuriera, druga paczka, zmiana numeru, brak duplikatów, usunięcie nieaktualnych linków.';
+  } catch (error) { output.textContent = 'FAIL — ' + error.message; }
+})();
+</script>

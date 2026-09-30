@@ -1,0 +1,9 @@
+a[data-hakari-tracking] {
+  color: #0066b3;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+a[data-hakari-tracking]:focus-visible {
+  outline: 2px solid #0066b3;
+  outline-offset: 3px;
+}
