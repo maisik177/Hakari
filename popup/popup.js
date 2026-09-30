@@ -7,7 +7,7 @@ const status = document.querySelector("#status");
 
 async function loadNote() {
   try {
-    const stored = await browser.storage.local.get("note");
+    const stored = await chrome.storage.local.get("note");
     note.value = typeof stored.note === "string" ? stored.note : "";
     note.disabled = false;
     save.disabled = false;
@@ -28,7 +28,7 @@ form.addEventListener("submit", async (event) => {
   note.disabled = true;
   status.textContent = "Zapisywanie…";
   try {
-    await browser.storage.local.set({ note: note.value });
+    await chrome.storage.local.set({ note: note.value });
     status.textContent = "Notatka zapisana.";
   } catch (error) {
     status.textContent = "Nie udało się zapisać. Spróbuj ponownie.";

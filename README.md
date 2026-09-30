@@ -1,64 +1,46 @@
-# Hakari
+# Hakari — Google Chrome
 
-Szkielet rozszerzenia Mozilla Firefox (Manifest V3), napisany w zwykłym HTML, CSS i JavaScript. Nie wymaga instalacji bibliotek ani kompilowania.
+Rozszerzenie Manifest V3 zamieniające numery paczek w panelu IdoSell kartony24h.com w linki do śledzenia. Wersja 0.3.0 jest przygotowana dla Chrome 95 lub nowszego. Nie wymaga bibliotek, kompilacji ani podpisu cyfrowego do lokalnych testów.
 
-## Uruchomienie
+## Instalacja do testów — bez podpisu
 
-1. Otwórz Firefox 140 lub nowszy.
-2. Wpisz `about:debugging#/runtime/this-firefox` w pasku adresu.
-3. Kliknij „Wczytaj tymczasowy dodatek…” i wybierz `manifest.json` z tego folderu.
-4. Otwórz Hakari z menu rozszerzeń (ikona puzzla). Możesz przypiąć je do paska narzędzi.
-5. Wpisz notatkę, zapisz ją i otwórz panel ponownie, aby sprawdzić zapis.
+1. Otwórz `chrome://extensions` w Google Chrome.
+2. Włącz **Tryb dewelopera** w prawym górnym rogu.
+3. Kliknij **Załaduj rozpakowane**.
+4. Wybierz folder `C:\Users\Maks\Documents\GitHub\Hakari` (cały folder, nie plik manifest.json).
+5. Otwórz lub odśwież zamówienie w kartony24h.com. Kliknij numer w sekcji „Przesyłka”.
 
-Instalacja tymczasowa kończy się po ponownym uruchomieniu Firefoksa. To tryb pracy nad dodatkiem, nie instalacja produkcyjna. Nie traktuj notatki jako kopii zapasowej; usunięcie dodatku lub profilu może usunąć jej dane.
+Jeżeli korzystasz z ZIP, najpierw go rozpakuj i wybierz folder zawierający `manifest.json`. Nie używaj wcześniejszego XPI dla Firefoksa. Zachowaj folder na dysku: Chrome korzysta z tych plików. Po zmianach kliknij ikonę przeładowania na karcie Hakari w `chrome://extensions`, a następnie odśwież zamówienie.
+
+Ten tryb służy testom lokalnym. Publikacja w Chrome Web Store jest osobnym procesem i nie została wykonana.
+
+## Działanie
+
+Rozszerzenie działa tylko na `https://kartony24h.com/panel/orderd.php?idt=…` oraz `/panel/app/orderd.php?idt=…`, także wewnątrz ramki starego panelu. Odczytuje przewoźnika z pola „Kurier”, nie z notatek. Każdy numer paczki otwiera śledzenie w nowej karcie. Obsługuje wiele paczek i aktualizacje danych bez przeładowania.
+
+Przewoźnicy: GLS, InPost, DPD, DHL, UPS, Pocztex / Poczta Polska, ORLEN Paczka i FedEx. Rozpoznawane są warianty typu „Allegro Kurier DPD”, „Allegro Paczkomaty InPost” i „DHL eCommerce”. Nieznane i niejednoznaczne nazwy pozostają tekstem. Allegro One / Delivery oraz numery AD nie są jeszcze obsługiwane. [Informacja ORLEN o Allegro Delivery](https://www.orlenpaczka.pl/sledz-paczke/).
+
+Numery nie są zapisywane ani wysyłane w tle. Dopiero kliknięcie przekazuje numer stronie przewoźnika, bez adresu panelu w nagłówku Referer. Przykładowa notatka w panelu dodatku jest zapisywana lokalnie przez `chrome.storage.local`; usunięcie dodatku lub profilu może ją usunąć.
 
 ## Pliki
 
-- `manifest.json` — nazwa, wersja, uprawnienia i konfiguracja Firefoksa.
-- `popup/popup.html` — zawartość panelu.
-- `popup/popup.css` — wygląd panelu.
-- `popup/popup.js` — zapis i odczyt przykładowej notatki.
-- `icons/hakari.svg` — ikona rozszerzenia.
+- `manifest.json` — konfiguracja Chrome i ograniczenie stron.
+- `content/tracking.js` — przewoźnicy i adresy śledzenia.
+- `content/orders.js`, `content/orders.css` — linki w panelu i ich wygląd.
+- `popup/` — panel dodatku i lokalna notatka.
+- `icons/hakari-*.png` — ikony dla Chrome; SVG pozostaje źródłem i grafiką panelu.
+- `tests/` — testy rozpoznawania, panelu oraz przykładowego układu IdoSell.
 
-Po zmianach kliknij „Wczytaj ponownie” przy Hakari w `about:debugging` i ponownie otwórz panel. Konsolę rozszerzenia otwiera przycisk „Zbadaj”.
+## Weryfikacja
 
-## Założenia
+Uruchom `node --test tests/*.test.cjs`. Testy sprawdzają zakres adresów, nazwy przewoźników, parametry numerów oraz odczyt, zapis i błędy notatki z interfejsem Chrome. Walidacja manifestu obejmuje istnienie plików oraz format i wymiary ikon PNG.
 
-Notatka to przykładowa funkcja do zastąpienia docelową funkcjonalnością Hakari. Rozszerzenie używa wyłącznie uprawnienia `storage`, przechowuje dane w `browser.storage.local` i nie wysyła ich do sieci. Nie odczytuje otwartych stron. Skrypty stron i skrypt tła można dodać, kiedy będą potrzebne.
+`tests/dom.html` testuje na sztucznych danych: tworzenie linku, zachowanie przycisków, zmianę kuriera i numeru, drugą paczkę i usuwanie nieaktualnych linków. Test przeszedł w przeglądarce przed migracją; kod śledzenia nie zmienił się podczas migracji.
 
-Identyfikator `hakari@maisik177.extensions` jest identyfikatorem dodatku, a nie adresem kontaktowym. Ustal go przed pierwszą publikacją i później zachowaj. Deklaracja `data_collection_permissions` odpowiada obecnej wersji bez transmisji danych; aktualizuj ją, jeśli funkcje dodatku się zmienią.
+Automatyczne wyszukiwanie GLS potwierdzono na testowym numerze. Pozostałe trasy wymagają sprawdzenia na rzeczywistych przesyłkach. Testy nie zastępują sprawdzenia załadowanego rozszerzenia na zalogowanym panelu.
 
-## Sprawdzenie przed publikacją
+## Dokumentacja Chrome
 
-- Zapisz tekst, zamknij panel i ponownie go otwórz.
-- Zapisz pustą notatkę i upewnij się, że poprzedni tekst znika.
-- Sprawdź obsługę klawiaturą (Tab, Shift+Tab, Enter na przycisku).
-- Sprawdź brak błędów w konsoli rozszerzenia.
-
-Publikacja wymaga osobnego przygotowania i podpisania dodatku przez Mozillę. Ten szkielet nie został opublikowany.
-
-## Dokumentacja
-
-- [Pierwsze rozszerzenie — MDN](https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/Your_first_WebExtension)
-- [Konfiguracja Firefoksa — MDN](https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/manifest.json/browser_specific_settings)
-- [Lokalny magazyn danych — MDN](https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/API/storage/local)
-
-## Śledzenie przesyłek (0.2.0)
-
-Rozszerzenie odczytuje tylko szczegóły zamówień `https://kartony24h.com/panel/orderd.php?idt=…` oraz wariant `/panel/app/orderd.php?idt=…`. Działa także wewnątrz ramki starego panelu (`all_frames`). Numer w `.package-number` staje się linkiem do śledzenia w nowej karcie. Przewoźnik pochodzi wyłącznie z pola „Kurier” (`#tr_firma-kurierska .delivery-name`), nigdy z notatki do zamówienia. Obsługiwane są nowe paczki i zmiany danych bez przeładowania strony.
-
-Przewoźnicy: GLS, InPost, DPD, DHL, UPS, Pocztex / Poczta Polska, ORLEN Paczka, FedEx. Rozpoznawane są warianty takie jak „Allegro Kurier DPD”, „Allegro Paczkomaty InPost” i „DHL eCommerce”. Nieznane i niejednoznaczne nazwy pozostają zwykłym tekstem. Allegro One / Delivery oraz numery AD wymagają osobnej integracji i obecnie również pozostają tekstem. ORLEN informuje, że przesyłki Allegro Delivery są śledzone przez Allegro: https://www.orlenpaczka.pl/sledz-paczke/.
-
-Nie ma zapytań sieciowych w tle ani zapisu numerów. Dopiero kliknięcie linku przekazuje numer stronie przewoźnika; adres panelu nie jest przekazywany jako Referer. Funkcja notatki pozostaje lokalna. Dotychczasowa informacja, że dodatek nie odczytuje stron, dotyczyła szkieletu 0.1.0.
-
-### Uruchomienie nowej funkcji
-
-W `about:debugging#/runtime/this-firefox` wczytaj ponownie Hakari (albo wybierz ten manifest przez „Wczytaj tymczasowy dodatek…”), zaakceptuj dostęp do kartony24h.com, jeżeli Firefox o niego poprosi, i odśwież stronę zamówienia. Kliknij numer w sekcji „Przesyłka”. Instalacja tymczasowa znika po restarcie Firefoksa.
-
-### Weryfikacja
-
-- `node --test tests/tracking.test.cjs` — ograniczenie adresów, warianty nazw, zachowanie zer wiodących, nieznane nazwy i błędne numery.
-- `tests/dom.html` — lokalny test na sztucznych danych w strukturze odczytanej z panelu: tworzenie linku, zachowanie przycisków, zmiana kuriera/numeru, dodanie drugiej paczki i usuwanie nieaktualnych linków.
-- Potwierdzono w przeglądarce, że link GLS automatycznie wyszukuje testowy numer. Pozostałe trasy wymagają sprawdzenia na rzeczywistych przesyłkach każdego przewoźnika. Test lokalny nie zastępuje testu załadowanego rozszerzenia w Firefox.
-
-Pliki funkcji: `content/tracking.js`, `content/orders.js`, `content/orders.css`. Brak bibliotek i etapu kompilacji.
+- [Ładowanie rozpakowanego rozszerzenia](https://developer.chrome.com/docs/extensions/get-started/tutorial/hello-world)
+- [Ikony — bez obsługi SVG w manifeście](https://developer.chrome.com/docs/extensions/develop/ui/configure-icons)
+- [chrome.storage](https://developer.chrome.com/docs/extensions/reference/api/storage)
