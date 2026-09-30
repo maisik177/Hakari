@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="pl">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Hakari</title>
+    <link rel="stylesheet" href="popup.css">
+    <script src="popup.js" defer></script>
+  </head>
+  <body>
+    <header>
+      <img src="../icons/hakari.svg" width="40" height="40" alt="">
+      <div><h1>Hakari</h1><p>Śledzenie przesyłek w kartony24h.com.</p></div>
+    </header>
+    <main>
+      <p>W szczegółach zamówienia kliknij numer paczki, aby otworzyć śledzenie w nowej karcie.</p>
+      <p class="privacy">Obsługiwane: GLS, InPost, DPD, DHL, UPS, Pocztex, Poczta Polska, ORLEN Paczka i FedEx. Także warianty Allegro z nazwą przewoźnika. Allegro One / Delivery i numery AD nie są jeszcze obsługiwane.</p>
+      <form id="note-form">
+        <label for="note">Notatka</label>
+        <textarea id="note" rows="6" maxlength="10000" placeholder="Zapisz coś na później…" disabled></textarea>
+        <button id="save" type="submit" disabled>Zapisz notatkę</button>
+      </form>
+      <p id="status" role="status" aria-live="polite">Wczytywanie…</p>
+      <p class="privacy">Notatka pozostaje w tej przeglądarce. Zapisz zmiany przed zamknięciem panelu.</p>
+    </main>
+  </body>
+</html>
