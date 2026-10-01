@@ -6,13 +6,20 @@
     <title>Hakari</title>
     <link rel="stylesheet" href="popup.css">
     <script src="popup.js" defer></script>
+    <script src="bridge.js" defer></script>
   </head>
   <body>
     <header>
       <img src="../icons/hakari.svg" width="40" height="40" alt="">
-      <div><h1>Hakari</h1><p>Śledzenie przesyłek w kartony24h.com.</p></div>
+      <div><h1>Hakari <small>0.4.1</small></h1><p>Śledzenie przesyłek i przekazywanie zamówień.</p></div>
     </header>
     <main>
+      <form id="bridge-form">
+        <label for="bridge-token">Klucz połączenia z Pythonem</label>
+        <input id="bridge-token" type="password" autocomplete="off" maxlength="128" required>
+        <button type="submit">Zapisz klucz połączenia</button>
+      </form>
+      <p id="bridge-status" role="status">Uruchom python/receiver.py i wklej wyświetlony klucz. Następnie użyj przycisku Hakari nad listą zamówień.</p>
       <p>W szczegółach zamówienia kliknij numer paczki, aby otworzyć śledzenie w nowej karcie.</p>
       <p class="privacy">Obsługiwane: GLS, InPost, DPD, DHL, UPS, Pocztex, Poczta Polska, ORLEN Paczka i FedEx. Także warianty Allegro z nazwą przewoźnika. Allegro One / Delivery i numery AD nie są jeszcze obsługiwane.</p>
       <form id="note-form">

@@ -12,3 +12,5 @@ button:disabled { opacity: .6; cursor: wait; }
 :focus-visible { outline: 3px solid #dfd5ff; outline-offset: 3px; }
 #status { min-height: 21px; margin: 12px 0 0; color: #d4c9ff; }
 .privacy { margin: 12px 0 0; color: #b9bdd0; font-size: 12px; }
+input { width: 100%; padding: 10px; border: 1px solid #535b76; border-radius: 8px; background: #202536; color: #f4f5fa; font: inherit; }
+#bridge-status { color: #d4c9ff; font-size: 12px; }
