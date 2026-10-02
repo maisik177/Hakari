@@ -15,7 +15,10 @@ test('Chrome manifest references packaged scripts, popup and supported PNG icons
     'https://kartony24h.com/panel/orderd.php*',
     'https://kartony24h.com/panel/app/orderd.php*'
   ]);
-  for (const entry of [manifest.action.default_popup, ...manifest.content_scripts.flatMap(s => [...s.js, ...s.css])]) {
+  assert.deepEqual(manifest.host_permissions, ['http://127.0.0.1/*']);
+  assert.equal(manifest.content_scripts[1].all_frames, true);
+  assert.deepEqual(manifest.content_scripts[1].matches, ['https://kartony24h.com/panel/*']);
+  for (const entry of [manifest.background.service_worker, manifest.action.default_popup, ...manifest.content_scripts.flatMap(s => [...s.js, ...s.css])]) {
     assert.ok(fs.existsSync(path.join(root, entry)), entry);
   }
   for (const icons of [manifest.icons, manifest.action.default_icon]) {
