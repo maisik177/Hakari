@@ -5,3 +5,6 @@ web-ext-artifacts/
 Thumbs.db
 python/data/
 __pycache__/
+
+# Prywatne klucze podpisujace pozostaja lokalnie
+*.pem
