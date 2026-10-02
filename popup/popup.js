@@ -1,3 +1,4 @@
+/* Autor: Maksymilian Dyla, firma Cart-pack */
 "use strict";
 
 const form = document.querySelector("#note-form");

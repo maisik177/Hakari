@@ -1,3 +1,4 @@
+/* Autor: Maksymilian Dyla, firma Cart-pack */
 "use strict";
 const bridgeForm = document.querySelector("#bridge-form");
 const bridgeInput = document.querySelector("#bridge-token");

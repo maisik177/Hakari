@@ -1,3 +1,4 @@
+/* Autor: Maksymilian Dyla, firma Cart-pack */
 const { test } = require('node:test');
 const assert = require('node:assert/strict');
 const { resolve, isOrderPage } = require('../content/tracking.js');

@@ -1,3 +1,4 @@
+/* Autor: Maksymilian Dyla, firma Cart-pack */
 #hakari-send-orders { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; margin: 12px 0; padding: 12px 16px; background: #f3efff; border: 1px solid #c4b5fd; border-radius: 8px; color: #272036; font: 14px/1.5 system-ui, sans-serif; }
 #hakari-send-orders button { padding: 10px 14px; border: 0; border-radius: 6px; background: #6543b5; color: white; font: inherit; cursor: pointer; }
 #hakari-send-orders button:disabled { opacity: .6; cursor: wait; }

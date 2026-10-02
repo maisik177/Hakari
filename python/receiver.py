@@ -1,3 +1,4 @@
+# Autor: Maksymilian Dyla, firma Cart-pack
 """Local Hakari inbox. Python 3.10+, standard library only.
 
 Run: python receiver.py

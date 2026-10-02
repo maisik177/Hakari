@@ -1,3 +1,4 @@
+<!-- Autor: Maksymilian Dyla, firma Cart-pack -->
 # Hoshi 0.1
 
 Podprojekt Hakari: pobieranie danych zamówień z API IdoSell i tworzenie zwartych kart do drukowania na A4. Kilka zamówień na stronie; zdjęcia osadzone w HTML. Program tylko odczytuje API, nie zmienia zamówień, płatności ani dokumentów.

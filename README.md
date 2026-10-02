@@ -1,3 +1,4 @@
+<!-- Autor: Maksymilian Dyla, firma Cart-pack -->
 # Hakari — Google Chrome
 
 Rozszerzenie Manifest V3 zamieniające numery paczek w panelu IdoSell kartony24h.com w linki do śledzenia oraz przekazujące zaznaczone ID zamówień do lokalnego odbiornika Python. Wersja 0.4.1 jest przygotowana dla Chrome 95 lub nowszego. Nie wymaga bibliotek, kompilacji ani podpisu cyfrowego do lokalnych testów.

@@ -1,3 +1,4 @@
+/* Autor: Maksymilian Dyla, firma Cart-pack */
 "use strict";
 
 // Shared by the content script and the dependency-free Node tests.

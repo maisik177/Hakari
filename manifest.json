@@ -1,6 +1,7 @@
 {
   "manifest_version": 3,
   "name": "Hakari",
+  "author": "Maksymilian Dyla, firma Cart-pack",
   "version": "0.4.1",
   "minimum_chrome_version": "95",
   "description": "Śledzenie przesyłek i przekazywanie ID zamówień do lokalnego programu.",

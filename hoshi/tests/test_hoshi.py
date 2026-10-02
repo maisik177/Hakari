@@ -1,3 +1,4 @@
+# Autor: Maksymilian Dyla, firma Cart-pack
 import importlib.util
 from contextlib import closing
 import json

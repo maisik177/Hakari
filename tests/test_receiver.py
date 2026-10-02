@@ -1,3 +1,4 @@
+# Autor: Maksymilian Dyla, firma Cart-pack
 import importlib.util
 import json
 from pathlib import Path

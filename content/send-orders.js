@@ -1,3 +1,4 @@
+/* Autor: Maksymilian Dyla, firma Cart-pack */
 "use strict";
 (() => {
   if (location.origin !== "https://kartony24h.com" || !location.pathname.startsWith("/panel/")) return;

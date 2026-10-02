@@ -1,4 +1,5 @@
 @echo off
+rem Autor: Maksymilian Dyla, firma Cart-pack
 cd /d "%~dp0"
 where py >nul 2>nul
 if %errorlevel% equ 0 (

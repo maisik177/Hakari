@@ -1,3 +1,4 @@
+# Autor: Maksymilian Dyla, firma Cart-pack
 """Small Windows desktop UI. Network work never blocks Tk's event loop."""
 from pathlib import Path
 import queue

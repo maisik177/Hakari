@@ -1,3 +1,4 @@
+# Autor: Maksymilian Dyla, firma Cart-pack
 """Hoshi 0.1: read-only IdoSell client and compact, offline printable order cards."""
 from __future__ import annotations
 

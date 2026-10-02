@@ -1,3 +1,4 @@
+<!-- Autor: Maksymilian Dyla, firma Cart-pack -->
 # Weryfikacja API IdoSell — Hoshi
 
 Data: 1 października 2026, Europe/Warsaw. Sklep: `kartony24h.com`. API Admin v8. Wyłącznie odczyty; POST został użyty tylko w metodzie wyszukiwania. Nie modyfikowano konfiguracji uprawnień ani danych sklepu.

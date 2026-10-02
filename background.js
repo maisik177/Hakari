@@ -1,3 +1,4 @@
+/* Autor: Maksymilian Dyla, firma Cart-pack */
 "use strict";
 async function sendOrders(message, sender) {
   const url = new URL(sender.url || "about:blank");
